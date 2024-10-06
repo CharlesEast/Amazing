@@ -1,0 +1,48 @@
+﻿<!-- File: Views/MainWindow.xaml -->
+<Window x:Class="Amazing.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Amazing Maze" 
+        Width="1000" Height="1000"
+        WindowStartupLocation="CenterScreen"
+        SizeChanged="Window_SizeChanged">
+    <Grid>
+        <!-- Define Column Definitions: Controls Panel and Maze Display Area -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <!-- Controls Panel -->
+            <ColumnDefinition Width="*"/>
+            <!-- Maze Display Area -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Controls Panel -->
+        <StackPanel x:Name="ControlsPanel" Grid.Column="0" Margin="10">
+            <!-- Optional: Maze Dimensions Input -->
+            <!--
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <Label Content="Rows:" VerticalAlignment="Center"/>
+                <TextBox Name="RowsTextBox" Width="50" Text="40" Margin="5,0,10,0"/>
+                <Label Content="Cols:" VerticalAlignment="Center"/>
+                <TextBox Name="ColsTextBox" Width="50" Text="40" Margin="5,0,0,0"/>
+            </StackPanel>
+            -->
+
+            <!-- Algorithm Selection GroupBox -->
+            <GroupBox Header="Choose Algorithm" Margin="0,0,0,10" Padding="10">
+                <StackPanel>
+                    <RadioButton Name="DFS_RadioButton" Content="Depth-First Search (DFS)" IsChecked="True" Margin="0,0,0,5"/>
+                    <RadioButton Name="BFS_RadioButton" Content="Breadth-First Search (BFS)" Margin="0,0,0,5"/>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Generate and Solve Maze Button -->
+            <Button Name="GenerateSolveMazeButton" Content="Generate and Solve Amazing Maze" Width="200" Height="30" 
+                    Click="GenerateSolveMaze_Click" Margin="0,0,0,10"/>
+        </StackPanel>
+
+        <!-- Maze Display Area within ScrollViewer -->
+        <ScrollViewer Name="MazeScrollViewer" Grid.Column="1" Margin="10">
+            <Canvas Name="MazeCanvas" Background="White"/>
+        </ScrollViewer>
+    </Grid>
+</Window>
