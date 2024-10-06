@@ -1,20 +1,66 @@
-﻿using System.Collections.Generic;
+﻿// File: Amazing/Drawing/MazeDrawer.cs
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Windows.Controls;
+using System.Windows;
 using Amazing.Models;
+using System.Collections.Generic;
 
 namespace Amazing.Drawing
 {
-    public class MazeDrawer
+    public class MazeDrawer : IMazeDrawer
     {
-        private readonly Canvas _canvas;
-        private double _cellSize;
+        protected readonly Canvas _canvas;
+        protected readonly double _cellSize;
+
+        // Keep track of label TextBlocks to manage them during redraws
+        private TextBlock _startLabel;
+        private TextBlock _endLabel;
 
         public MazeDrawer(Canvas canvas, double cellSize)
         {
             _canvas = canvas;
             _cellSize = cellSize;
+        }
+
+        protected void DrawLine(double x1, double y1, double x2, double y2, Brush color)
+        {
+            var line = new Line()
+            {
+                X1 = x1,
+                Y1 = y1,
+                X2 = x2,
+                Y2 = y2,
+                Stroke = color,
+                StrokeThickness = 1
+            };
+            _canvas.Children.Add(line);
+        }
+
+        private void DrawLabel(string text, int row, int col, Brush foreground, double fontSize = 16)
+        {
+            // Create a TextBlock for the label
+            var label = new TextBlock
+            {
+                Text = text,
+                Foreground = foreground,
+                FontWeight = FontWeights.Bold,
+                FontSize = fontSize
+            };
+
+            // Measure the size of the text
+            label.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            var size = label.DesiredSize;
+
+            // Calculate the position to center the label within the cell
+            double x = col * _cellSize + (_cellSize - size.Width) / 2;
+            double y = row * _cellSize + (_cellSize - size.Height) / 2;
+
+            Canvas.SetLeft(label, x);
+            Canvas.SetTop(label, y);
+
+            // Add the label to the canvas
+            _canvas.Children.Add(label);
         }
 
         public void DrawMaze(Maze maze)
@@ -36,20 +82,59 @@ namespace Amazing.Drawing
                 if (cell.Walls[3]) // Left
                     DrawLine(x, y, x, y + _cellSize, Brushes.Black);
             }
+
+            // Add "S" and "E" labels
+            DrawStartAndEndLabels(maze);
         }
 
-        private void DrawLine(double x1, double y1, double x2, double y2, Brush color)
+        private void DrawStartAndEndLabels(Maze maze)
         {
-            var line = new Line()
+            // Remove existing labels if they exist
+            if (_startLabel != null)
             {
-                X1 = x1,
-                Y1 = y1,
-                X2 = x2,
-                Y2 = y2,
-                Stroke = color,
-                StrokeThickness = 1
+                _canvas.Children.Remove(_startLabel);
+                _startLabel = null;
+            }
+            if (_endLabel != null)
+            {
+                _canvas.Children.Remove(_endLabel);
+                _endLabel = null;
+            }
+
+            // Draw "S" at the start cell (0,0)
+            _startLabel = new TextBlock
+            {
+                Text = "S",
+                Foreground = Brushes.Green,
+                FontWeight = FontWeights.Bold,
+                FontSize = 16
             };
-            _canvas.Children.Add(line);
+            _startLabel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            var startSize = _startLabel.DesiredSize;
+            double startX = 0 * _cellSize + (_cellSize - startSize.Width) / 2;
+            double startY = 0 * _cellSize + (_cellSize - startSize.Height) / 2;
+            Canvas.SetLeft(_startLabel, startX);
+            Canvas.SetTop(_startLabel, startY);
+            _canvas.Children.Add(_startLabel);
+
+            // Draw "E" at the end cell (Rows-1, Cols-1)
+            int endRow = maze.Rows - 1;
+            int endCol = maze.Cols - 1;
+
+            _endLabel = new TextBlock
+            {
+                Text = "E",
+                Foreground = Brushes.Red,
+                FontWeight = FontWeights.Bold,
+                FontSize = 16
+            };
+            _endLabel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            var endSize = _endLabel.DesiredSize;
+            double endX = endCol * _cellSize + (_cellSize - endSize.Width) / 2;
+            double endY = endRow * _cellSize + (_cellSize - endSize.Height) / 2;
+            Canvas.SetLeft(_endLabel, endX);
+            Canvas.SetTop(_endLabel, endY);
+            _canvas.Children.Add(_endLabel);
         }
 
         public void DrawSolutionPath(List<Cell> path)

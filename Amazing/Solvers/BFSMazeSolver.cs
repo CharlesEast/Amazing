@@ -1,4 +1,4 @@
-﻿// File: Solvers/BFSMazeSolver.cs
+﻿// File: Amazing/Solvers/BFSMazeSolver.cs
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Amazing.Models;
@@ -9,7 +9,7 @@ namespace Amazing.Solvers
 {
     public class BFSMazeSolver : IMazeSolver
     {
-        public async Task<List<Cell>> SolveMaze(Maze maze, MazeDrawer drawer)
+        public async Task<List<Cell>> SolveMaze(Maze maze, IMazeDrawer drawer)
         {
             var queue = new Queue<Cell>();
             var visited = new bool[maze.Rows, maze.Cols];

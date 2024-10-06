@@ -1,4 +1,4 @@
-﻿// File: Views/MainWindow.xaml.cs
+﻿// File: Amazing/Views/MainWindow.xaml.cs
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,13 +13,13 @@ namespace Amazing
     public partial class MainWindow : Window
     {
         // Default maze dimensions
-        private int rows = 60;
-        private int cols = 60;
+        private int rows = 40;
+        private int cols = 40;
         private double cellSize;
 
         private Maze maze;
         private MazeGenerator generator;
-        private MazeDrawer drawer;
+        private IMazeDrawer drawer; // Changed to IMazeDrawer
 
         public MainWindow()
         {
@@ -90,7 +90,7 @@ namespace Amazing
             CalculateCellSize();
 
             // Initialize the drawer and draw the maze
-            drawer = new MazeDrawer(MazeCanvas, cellSize);
+            drawer = new MazeDrawer(MazeCanvas, cellSize); // MazeDrawer implements IMazeDrawer
             drawer.DrawMaze(maze);
         }
 
@@ -167,7 +167,7 @@ namespace Amazing
                 CalculateCellSize();
 
                 // Re-initialize the drawer with the new cell size
-                drawer = new MazeDrawer(MazeCanvas, cellSize);
+                drawer = new MazeDrawer(MazeCanvas, cellSize); // MazeDrawer implements IMazeDrawer
 
                 // Redraw the maze with the updated cell size
                 drawer.DrawMaze(maze);
