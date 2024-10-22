@@ -11,7 +11,7 @@
         {
             Row = row;
             Col = col;
-            Walls = new bool[] { true, true, true, true };
+            Walls = [true, true, true, true];
             Visited = false;
         }
     }

@@ -1,6 +1,4 @@
 ﻿// File: Amazing/Solvers/BFSMazeSolver.cs
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Amazing.Models;
 using Amazing.Drawing;
 using System.Windows.Media;
@@ -31,7 +29,7 @@ namespace Amazing.Solvers
 
                 if (current == end)
                 {
-                    return ReconstructPath(predecessor, start, end);
+                    return ReconstructPath(predecessor, start, end) ?? new List<Cell>();
                 }
 
                 foreach (var neighbor in GetAccessibleNeighbors(current, maze))
@@ -45,10 +43,10 @@ namespace Amazing.Solvers
                 }
             }
 
-            return null; // No path found
+            return new List<Cell>(); // No path found
         }
 
-        private List<Cell> ReconstructPath(Cell[,] predecessor, Cell start, Cell end)
+        private List<Cell>? ReconstructPath(Cell[,] predecessor, Cell start, Cell end)
         {
             var path = new List<Cell>();
             var current = end;

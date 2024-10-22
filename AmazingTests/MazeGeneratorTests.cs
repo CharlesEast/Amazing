@@ -1,6 +1,5 @@
 ﻿// File: AmazingTests/MazeGeneratorTests.cs
 using FluentAssertions;
-using Xunit;
 using Amazing.Models;
 using Amazing.Generation;
 

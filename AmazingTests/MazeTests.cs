@@ -1,6 +1,5 @@
 // File: AmazingTests/MazeTests.cs
 using FluentAssertions;
-using Xunit;
 using Amazing.Models;
 
 namespace AmazingTests

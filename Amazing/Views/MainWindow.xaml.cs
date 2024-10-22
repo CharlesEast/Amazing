@@ -1,12 +1,9 @@
 ﻿// File: Amazing/Views/MainWindow.xaml.cs
-using System;
-using System.Threading.Tasks;
 using System.Windows;
 using Amazing.Models;
 using Amazing.Generation;
 using Amazing.Drawing;
 using Amazing.Solvers;
-using System.Windows.Controls;
 
 namespace Amazing
 {
@@ -146,7 +143,7 @@ namespace Amazing
         /// Determines which solver is selected by the user.
         /// </summary>
         /// <returns>An instance of a class that implements IMazeSolver.</returns>
-        private IMazeSolver GetSelectedSolver()
+        private IMazeSolver? GetSelectedSolver()
         {
             if (DFS_RadioButton.IsChecked == true)
                 return new DFSMazeSolver();

@@ -1,6 +1,4 @@
 ﻿// File: Amazing/Solvers/DFSMazeSolver.cs
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Amazing.Models;
 using Amazing.Drawing;
 using System.Windows.Media;
@@ -9,7 +7,7 @@ namespace Amazing.Solvers
 {
     public class DFSMazeSolver : IMazeSolver
     {
-        public async Task<List<Cell>> SolveMaze(Maze maze, IMazeDrawer drawer)
+        public async Task<List<Cell>?> SolveMaze(Maze maze, IMazeDrawer drawer)
         {
             var stack = new Stack<Cell>();
             var visited = new bool[maze.Rows, maze.Cols];
@@ -95,7 +93,7 @@ namespace Amazing.Solvers
 
         private void Shuffle<T>(List<T> list)
         {
-            var rand = new System.Random();
+            var rand = new Random();
             int n = list.Count;
             for (int i = 0; i < n; i++)
             {

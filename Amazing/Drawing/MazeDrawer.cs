@@ -4,24 +4,17 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows;
 using Amazing.Models;
-using System.Collections.Generic;
 
 namespace Amazing.Drawing
 {
-    public class MazeDrawer : IMazeDrawer
+    public class MazeDrawer(Canvas canvas, double cellSize) : IMazeDrawer
     {
-        protected readonly Canvas _canvas;
-        protected readonly double _cellSize;
+        protected readonly Canvas _canvas = canvas;
+        protected readonly double _cellSize = cellSize;
 
         // Keep track of label TextBlocks to manage them during redraws
-        private TextBlock _startLabel;
-        private TextBlock _endLabel;
-
-        public MazeDrawer(Canvas canvas, double cellSize)
-        {
-            _canvas = canvas;
-            _cellSize = cellSize;
-        }
+        private TextBlock? _startLabel;
+        private TextBlock? _endLabel;
 
         protected void DrawLine(double x1, double y1, double x2, double y2, Brush color)
         {
@@ -158,8 +151,8 @@ namespace Amazing.Drawing
 
         private bool IsAdjacent(Cell a, Cell b)
         {
-            return (System.Math.Abs(a.Row - b.Row) == 1 && a.Col == b.Col) ||
-                   (System.Math.Abs(a.Col - b.Col) == 1 && a.Row == b.Row);
+            return (Math.Abs(a.Row - b.Row) == 1 && a.Col == b.Col) ||
+                   (Math.Abs(a.Col - b.Col) == 1 && a.Row == b.Row);
         }
 
         public void HighlightCell(Cell cell, Brush color)

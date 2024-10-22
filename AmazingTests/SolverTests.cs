@@ -1,12 +1,9 @@
 ﻿// File: AmazingTests/SolverTests.cs
 using FluentAssertions;
-using Xunit;
 using Amazing.Models;
 using Amazing.Generation;
 using Amazing.Solvers;
 using Amazing.Drawing;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Windows.Media;
 
 namespace AmazingTests
@@ -45,7 +42,7 @@ namespace AmazingTests
             // Remove all walls
             foreach (var cell in maze.Cells)
             {
-                cell.Walls = new bool[] { false, false, false, false };
+                cell.Walls = [false, false, false, false];
             }
 
             var solver = new BFSMazeSolver();

@@ -1,5 +1,4 @@
 ﻿// File: Amazing/Drawing/IMazeDrawer.cs
-using System.Collections.Generic;
 using System.Windows.Media;
 using Amazing.Models;
 

@@ -1,6 +1,4 @@
 ﻿// File: Amazing/Solvers/IMazeSolver.cs
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Amazing.Models;
 using Amazing.Drawing;
 
